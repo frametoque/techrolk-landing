@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { ArrowRight, ExternalLink } from "lucide-react";
@@ -11,6 +11,17 @@ import {
 } from "../Components/AnimationUtils";
 
 export default function PortfolioPage({ projectsData = [] }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const projects = projectsData.length > 0 ? projectsData : [
     {
       id: "high-endurance-hexacopter",
@@ -31,8 +42,8 @@ export default function PortfolioPage({ projectsData = [] }) {
       <section
         className="section-padding-hero"
         style={{
-          paddingTop: 140,
-          paddingBottom: 80,
+          paddingTop: isMobile ? 100 : 140,
+          paddingBottom: isMobile ? 50 : 80,
           background: "#0A0A0A",
           position: "relative",
           overflow: "hidden",
@@ -53,7 +64,7 @@ export default function PortfolioPage({ projectsData = [] }) {
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "0 24px",
+            padding: isMobile ? "0 16px" : "0 24px",
             position: "relative",
           }}
         >
@@ -72,23 +83,23 @@ export default function PortfolioPage({ projectsData = [] }) {
                 border: "1px solid rgba(204,31,42,0.3)",
                 borderRadius: 100,
                 padding: "6px 16px",
-                marginBottom: 24,
+                marginBottom: isMobile ? 16 : 24,
               }}
             >
-              <span style={{ fontSize: 13, fontWeight: 600, color: "#CC1F2A" }}>
+              <span style={{ fontSize: isMobile ? 12 : 13, fontWeight: 600, color: "#CC1F2A" }}>
                 Our Work
               </span>
             </motion.div>
             <motion.h1
               variants={fadeUp}
               style={{
-                fontSize: "clamp(36px, 5vw, 60px)",
+                fontSize: isMobile ? "32px" : "clamp(36px, 5vw, 60px)",
                 fontWeight: 900,
-                lineHeight: 1.1,
+                lineHeight: 1.15,
                 color: "white",
                 letterSpacing: "-0.03em",
                 maxWidth: 600,
-                marginBottom: 20,
+                marginBottom: isMobile ? 14 : 20,
               }}
             >
               Projects We Are Proud Of
@@ -96,10 +107,10 @@ export default function PortfolioPage({ projectsData = [] }) {
             <motion.p
               variants={fadeUp}
               style={{
-                fontSize: 17,
+                fontSize: isMobile ? 15 : 17,
                 color: "#9B9B9B",
                 maxWidth: 520,
-                lineHeight: 1.7,
+                lineHeight: 1.65,
               }}
             >
               From startup projects to commercial products, here is a selection of
@@ -112,21 +123,20 @@ export default function PortfolioPage({ projectsData = [] }) {
       {/* Projects Grid */}
       <section
         className="section-padding"
-        style={{ padding: "80px 0", background: "#FAFAFA" }}
+        style={{ padding: isMobile ? "50px 0" : "80px 0", background: "#FAFAFA" }}
       >
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
           <motion.div
             className="portfolio-grid"
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
-              gap: 24,
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
+              gap: isMobile ? 20 : 24,
             }}
-            variants={staggerContainerSlow}
+            variants={isMobile ? staggerContainer : staggerContainerSlow}
             initial="hidden"
             whileInView="visible"
-            viewport={viewportOnce}
+            viewport={isMobile ? { once: true, amount: 0.01 } : viewportOnce}
           >
             {projects.map(
               (p) => {
@@ -154,7 +164,7 @@ export default function PortfolioPage({ projectsData = [] }) {
                   >
                     <div
                       style={{
-                        height: 220,
+                        height: isMobile ? 180 : 220,
                         position: "relative",
                         background: "#1A1A1A",
                         overflow: "hidden",
@@ -170,7 +180,7 @@ export default function PortfolioPage({ projectsData = [] }) {
 
                     <div
                       style={{
-                        padding: 24,
+                        padding: isMobile ? 18 : 24,
                         flex: 1,
                         display: "flex",
                         flexDirection: "column",

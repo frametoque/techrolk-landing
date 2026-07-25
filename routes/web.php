@@ -23,6 +23,14 @@ Route::get('/services', [ServiceController::class, 'Services'])->name('services'
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio');
 Route::get('/portfolio/{id}', [PortfolioController::class, 'show'])->name('portfolio.show');
 
+Route::get('/clear-cache', function () {
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:clear');
+    \Illuminate\Support\Facades\Artisan::call('route:clear');
+    return '<h3>All Caches Cleared Successfully!</h3><a href="/">Go to Home</a>';
+});
+
 Route::get('/cookies', function () {
     return view('cookies');
 });
@@ -149,7 +157,7 @@ Route::get('/services',[ServiceController::class,'Services'])->name('Shop');
 
  /* redirector */
  Route::middleware(['redirect.product.url'])->group(function () {
-    Route::get('product/{product}', function(Product $product) {
-        // ...
+    Route::get('product/{product}', function($product) {
+        return redirect('/shop/product/' . $product);
     });
 });

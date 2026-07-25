@@ -128,14 +128,18 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
             style={{
               display: "grid",
               gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-              gap: 48,
+              gap: isMobile ? 0 : 48,
               alignItems: "center",
-              minHeight: "calc(100vh - 68px)",
+              minHeight: isMobile ? "auto" : "calc(100vh - 68px)",
             }}
           >
             {/* Left text */}
             <motion.div
-              style={{ padding: "60px 0" }}
+              style={{
+                padding: isMobile ? "40px 0 30px 0" : "60px 0",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
@@ -150,7 +154,7 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
                   border: "1px solid rgba(204,31,42,0.2)",
                   borderRadius: 100,
                   padding: "6px 16px",
-                  marginBottom: 24,
+                  marginBottom: isMobile ? 18 : 24,
                 }}
               >
                 <div
@@ -163,7 +167,7 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
                 />
                 <span
                   style={{
-                    fontSize: 13,
+                    fontSize: isMobile ? 12 : 13,
                     fontWeight: 600,
                     color: "#CC1F2A",
                     letterSpacing: "0.04em",
@@ -176,12 +180,12 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
               <motion.h1
                 variants={fadeUp}
                 style={{
-                  fontSize: "clamp(38px, 5vw, 60px)",
+                  fontSize: isMobile ? "32px" : "clamp(38px, 5vw, 60px)",
                   fontWeight: 900,
-                  lineHeight: 1.1,
+                  lineHeight: 1.15,
                   color: "#0A0A0A",
                   letterSpacing: "-0.03em",
-                  marginBottom: 20,
+                  marginBottom: isMobile ? 14 : 20,
                 }}
               >
                 Build Your{" "}
@@ -195,10 +199,10 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
               <motion.p
                 variants={fadeUp}
                 style={{
-                  fontSize: 17,
-                  lineHeight: 1.7,
+                  fontSize: isMobile ? 15 : 17,
+                  lineHeight: 1.65,
                   color: "#6B6B6B",
-                  marginBottom: 36,
+                  marginBottom: isMobile ? 28 : 36,
                   maxWidth: 440,
                 }}
               >
@@ -210,18 +214,26 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
               <motion.div
                 variants={fadeUp}
                 className="btn-row"
-                style={{ display: "flex", gap: 14, flexWrap: "wrap" }}
+                style={{
+                  display: "flex",
+                  flexDirection: isMobile ? "column" : "row",
+                  gap: 12,
+                  width: "100%",
+                  boxSizing: "border-box",
+                }}
               >
                 <motion.div
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  style={{ width: isMobile ? "100%" : "auto", boxSizing: "border-box" }}
                 >
                   <a
                     href="/services"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
+                      justifyContent: "center",
                       gap: 8,
                       background: "#CC1F2A",
                       color: "white",
@@ -231,6 +243,8 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
                       fontSize: 15,
                       textDecoration: "none",
                       boxShadow: "0 4px 20px rgba(204,31,42,0.3)",
+                      width: "100%",
+                      boxSizing: "border-box",
                     }}
                   >
                     Explore Services
@@ -248,6 +262,7 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     gap: 8,
                     background: "white",
                     color: "#0A0A0A",
@@ -257,6 +272,8 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
                     fontSize: 15,
                     textDecoration: "none",
                     border: "2px solid #E8E8E8",
+                    width: "100%",
+                    boxSizing: "border-box",
                   }}
                 >
                   <ShoppingBag size={16} />
@@ -270,16 +287,17 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
                 className="stats-row"
                 style={{
                   display: "flex",
-                  gap: 28,
-                  marginTop: 48,
-                  flexWrap: "wrap",
+                  gap: isMobile ? 16 : 28,
+                  marginTop: isMobile ? 32 : 48,
+                  justifyContent: isMobile ? "space-between" : "flex-start",
+                  flexWrap: "nowrap",
                 }}
               >
                 {stats.map((s) => (
-                  <motion.div key={s.label} variants={fadeUp}>
+                  <motion.div key={s.label} variants={fadeUp} style={{ flex: isMobile ? "1 1 0px" : "initial" }}>
                     <div
                       style={{
-                        fontSize: 24,
+                        fontSize: isMobile ? 22 : 24,
                         fontWeight: 900,
                         color: "#CC1F2A",
                         letterSpacing: "-0.03em",
@@ -289,10 +307,11 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
                     </div>
                     <div
                       style={{
-                        fontSize: 12,
+                        fontSize: isMobile ? 11 : 12,
                         color: "#9B9B9B",
                         fontWeight: 500,
                         marginTop: 2,
+                        lineHeight: 1.3,
                       }}
                     >
                       {s.label}
@@ -302,19 +321,23 @@ export default function HomePage({ servicesData = [], testimonialsData = [] }) {
               </motion.div>
             </motion.div>
 
-            <motion.div
-              className="hero-canvas-wrap"
-              variants={scaleIn}
-              initial="hidden"
-              animate="visible"
-              style={{
-                height: isMobile ? "300px" : "calc(100vh - 68px)",
-                position: "relative",
-                overflow: "visible",
-              }}
-            >
-              <DroneHero />
-            </motion.div>
+            {/* 3D Drone component - ONLY mounted on desktop to reduce main-thread work on mobile */}
+            {!isMobile && (
+              <motion.div
+                className="hero-canvas-wrap"
+                variants={scaleIn}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  height: "calc(100vh - 68px)",
+                  position: "relative",
+                  overflow: "visible",
+                  width: "100%",
+                }}
+              >
+                <DroneHero />
+              </motion.div>
+            )}
           </div>
         </div>
       </section>

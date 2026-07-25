@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { MapPin, Phone, Mail, Clock, MessageSquare } from "lucide-react";
@@ -14,6 +14,17 @@ import {
 } from "../Components/AnimationUtils";
 
 export default function ContactPage() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const whatsappNumber = "94761943645"; 
   const whatsappMessage = encodeURIComponent("Hello Techrolk!");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
@@ -24,7 +35,8 @@ export default function ContactPage() {
 
       {/* Hero Section */}
       <section className="section-padding-hero" style={{
-        paddingTop: 140, paddingBottom: 80,
+        paddingTop: isMobile ? 100 : 140,
+        paddingBottom: isMobile ? 50 : 80,
         background: "#0A0A0A", position: "relative", overflow: "hidden",
       }}>
         <motion.div
@@ -36,7 +48,7 @@ export default function ContactPage() {
             background: "radial-gradient(ellipse 50% 70% at 70% 50%, rgba(204,31,42,0.12) 0%, transparent 70%)",
           }}
         />
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", position: "relative" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px", position: "relative" }}>
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -47,22 +59,22 @@ export default function ContactPage() {
               style={{
                 display: "inline-flex", alignItems: "center", gap: 6,
                 background: "rgba(204,31,42,0.15)", border: "1px solid rgba(204,31,42,0.3)",
-                borderRadius: 100, padding: "6px 16px", marginBottom: 24,
+                borderRadius: 100, padding: "6px 16px", marginBottom: isMobile ? 16 : 24,
               }}
             >
-              <span style={{ fontSize: 13, fontWeight: 600, color: "#CC1F2A" }}>Contact Us</span>
+              <span style={{ fontSize: isMobile ? 12 : 13, fontWeight: 600, color: "#CC1F2A" }}>Contact Us</span>
             </motion.div>
             <motion.h1
               variants={fadeUp}
               style={{
-                fontSize: "clamp(36px, 5vw, 60px)",
-                fontWeight: 900, lineHeight: 1.1,
-                color: "white", letterSpacing: "-0.03em", maxWidth: 600, marginBottom: 20,
+                fontSize: isMobile ? "32px" : "clamp(36px, 5vw, 60px)",
+                fontWeight: 900, lineHeight: 1.15,
+                color: "white", letterSpacing: "-0.03em", maxWidth: 600, marginBottom: isMobile ? 14 : 20,
               }}
             >
               Let's Talk About Your Project
             </motion.h1>
-            <motion.p variants={fadeUp} style={{ fontSize: 17, color: "#9B9B9B", maxWidth: 480, lineHeight: 1.7 }}>
+            <motion.p variants={fadeUp} style={{ fontSize: isMobile ? 15 : 17, color: "#9B9B9B", maxWidth: 480, lineHeight: 1.65 }}>
               Reach out via WhatsApp or email.
             </motion.p>
           </motion.div>
@@ -70,9 +82,9 @@ export default function ContactPage() {
       </section>
 
       {/* Main Content Section */}
-      <section className="section-padding" style={{ padding: "80px 0", background: "#FAFAFA" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-          <div className="contact-layout" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 48, alignItems: "start" }}>
+      <section className="section-padding" style={{ padding: isMobile ? "50px 0" : "80px 0", background: "#FAFAFA" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
+          <div className="contact-layout" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1.4fr", gap: isMobile ? 32 : 48, alignItems: "start" }}>
             
             {/* Left Column: Info panel */}
             <motion.div
@@ -85,10 +97,10 @@ export default function ContactPage() {
                 variants={fadeLeft}
                 style={{
                   background: "white", border: "1px solid #E8E8E8",
-                  borderRadius: 20, padding: 36, marginBottom: 24,
+                  borderRadius: 20, padding: isMobile ? 24 : 36, marginBottom: 24,
                 }}
               >
-                <h2 style={{ fontWeight: 800, fontSize: 20, color: "#0A0A0A", marginBottom: 28 }}>
+                <h2 style={{ fontWeight: 800, fontSize: isMobile ? 18 : 20, color: "#0A0A0A", marginBottom: 24 }}>
                   Contact Information
                 </h2>
                 {[
@@ -104,7 +116,7 @@ export default function ContactPage() {
                 ].map(({ icon: Icon, label, value, href }, i) => (
                   <div
                     key={label}
-                    style={{ display: "flex", gap: 14, marginBottom: 22 }}
+                    style={{ display: "flex", gap: 14, marginBottom: 20 }}
                   >
                     <div style={{
                       width: 40, height: 40, background: "rgba(204,31,42,0.08)",
@@ -164,7 +176,7 @@ export default function ContactPage() {
               <motion.div
                 variants={fadeLeft}
                 style={{
-                  background: "#CC1F2A", borderRadius: 20, padding: 28,
+                  background: "#CC1F2A", borderRadius: 20, padding: isMobile ? 24 : 28,
                   position: "relative", overflow: "hidden",
                 }}
               >
@@ -179,10 +191,12 @@ export default function ContactPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: "inline-flex", alignItems: "center", gap: 8,
+                    display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
                     background: "white", color: "#CC1F2A",
                     padding: "10px 20px", borderRadius: 8,
                     fontWeight: 700, fontSize: 14, textDecoration: "none",
+                    width: isMobile ? "100%" : "auto",
+                    boxSizing: "border-box",
                   }}
                 >
                   Visit Shop
@@ -203,8 +217,8 @@ export default function ContactPage() {
                 variants={fadeRight}
                 style={{
                   background: "white", border: "1px solid #E8E8E8",
-                  borderRadius: 20, padding: 16, overflow: "hidden",
-                  height: 380, width: "100%", boxShadow: "0 4px 12px rgba(0,0,0,0.02)"
+                  borderRadius: 20, padding: 12, overflow: "hidden",
+                  height: isMobile ? 280 : 380, width: "100%", boxShadow: "0 4px 12px rgba(0,0,0,0.02)"
                 }}
               >
                 <iframe
@@ -224,7 +238,7 @@ export default function ContactPage() {
                 variants={scaleIn}
                 style={{
                   background: "white", border: "1px solid #E8E8E8",
-                  borderRadius: 20, padding: 32, textAlign: "center"
+                  borderRadius: 20, padding: isMobile ? 24 : 32, textAlign: "center"
                 }}
               >
                 <div
@@ -236,7 +250,7 @@ export default function ContactPage() {
                 >
                   <MessageSquare size={24} />
                 </div>
-                <h3 style={{ fontWeight: 800, fontSize: 20, color: "#0A0A0A", marginBottom: 8 }}>
+                <h3 style={{ fontWeight: 800, fontSize: isMobile ? 18 : 20, color: "#0A0A0A", marginBottom: 8 }}>
                   Chat with us on WhatsApp
                 </h3>
                 <p style={{ fontSize: 14, color: "#6B6B6B", maxWidth: 400, margin: "0 auto 24px", lineHeight: 1.6 }}>
@@ -251,7 +265,7 @@ export default function ContactPage() {
                     background: "#CC1F2A", color: "white",
                     padding: "16px 32px", borderRadius: 12,
                     fontWeight: 700, fontSize: 16, textDecoration: "none",
-                    width: "100%", maxWidth: 320,
+                    width: "100%", maxWidth: 320, boxSizing: "border-box",
                     boxShadow: "0 4px 14px rgba(211, 37, 37, 0.3)"
                   }}
                 >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -13,6 +13,17 @@ import {
 } from "../Components/AnimationUtils";
 
 export default function ProjectDetailsPage({ project }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   if (!project) {
     return (
       <div style={{ background: "#FAFAFA", minHeight: "100vh" }}>
@@ -49,8 +60,8 @@ export default function ProjectDetailsPage({ project }) {
       {/* Hero */}
       <section
         style={{
-          paddingTop: 130,
-          paddingBottom: 60,
+          paddingTop: isMobile ? 100 : 130,
+          paddingBottom: isMobile ? 40 : 60,
           background: "#0A0A0A",
           position: "relative",
           overflow: "hidden",
@@ -72,7 +83,7 @@ export default function ProjectDetailsPage({ project }) {
           style={{
             maxWidth: 1000,
             margin: "0 auto",
-            padding: "0 24px",
+            padding: isMobile ? "0 16px" : "0 24px",
             position: "relative",
           }}
         >
@@ -92,7 +103,7 @@ export default function ProjectDetailsPage({ project }) {
                 textDecoration: "none",
                 fontSize: 14,
                 fontWeight: 500,
-                marginBottom: 32,
+                marginBottom: isMobile ? 20 : 32,
               }}
             >
               <ArrowLeft size={16} /> Back to Portfolio
@@ -108,11 +119,11 @@ export default function ProjectDetailsPage({ project }) {
             <motion.h1
               variants={fadeUp}
               style={{
-                fontSize: "clamp(28px, 4vw, 48px)",
+                fontSize: isMobile ? "24px" : "clamp(28px, 4vw, 48px)",
                 fontWeight: 900,
                 color: "white",
                 letterSpacing: "-0.025em",
-                marginBottom: 20,
+                marginBottom: isMobile ? 14 : 20,
               }}
             >
               {name}
@@ -144,23 +155,23 @@ export default function ProjectDetailsPage({ project }) {
       </section>
 
       {/* Main content */}
-      <section style={{ padding: "60px 0 80px", background: "#FAFAFA" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 24px" }}>
+      <section style={{ padding: isMobile ? "40px 0 60px" : "60px 0 80px", background: "#FAFAFA" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
 
           {/* Image collage */}
           {collageImages.length > 0 && (
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: collageImages.length > 1 ? "2fr 1fr" : "1fr",
+                gridTemplateColumns: isMobile ? "1fr" : (collageImages.length > 1 ? "2fr 1fr" : "1fr"),
                 gap: 16,
-                marginBottom: 48,
+                marginBottom: isMobile ? 32 : 48,
               }}
             >
               <div
                 style={{
                   position: "relative",
-                  height: 340,
+                  height: isMobile ? 220 : 340,
                   background: "#1A1A1A",
                   borderRadius: 16,
                   overflow: "hidden",
@@ -174,13 +185,14 @@ export default function ProjectDetailsPage({ project }) {
               </div>
 
               {collageImages.length > 1 && (
-                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{ display: "flex", flexDirection: isMobile ? "row" : "column", gap: 16 }}>
                   {collageImages.slice(1, 3).map((img, idx) => (
                     <div
                       key={idx}
                       style={{
                         position: "relative",
-                        height: 162,
+                        height: isMobile ? 130 : 162,
+                        flex: isMobile ? 1 : "initial",
                         background: "#1A1A1A",
                         borderRadius: 14,
                         overflow: "hidden",
@@ -202,9 +214,9 @@ export default function ProjectDetailsPage({ project }) {
           <motion.div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 24,
-              marginBottom: 48,
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: isMobile ? 16 : 24,
+              marginBottom: isMobile ? 32 : 48,
             }}
             variants={staggerContainerSlow}
             initial="hidden"

@@ -17,7 +17,7 @@ export default function DroneHero() {
     const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100);
 
     const isMobile = W < 768;
-    camera.position.set(0, 0.5, isMobile ? 6.0 : 8.0);
+    camera.position.set(0, 0.2, isMobile ? 5.0 : 8.0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(W, H);
@@ -297,7 +297,7 @@ export default function DroneHero() {
     statusLed.position.set(0, 0.14, 0.25);
     drone.add(statusLed);
 
-    drone.scale.setScalar(0.85);
+    drone.scale.setScalar(isMobile ? 0.72 : 0.85);
     drone.rotation.x = 0.1;
     drone.rotation.y = -0.3;
 
@@ -423,7 +423,8 @@ export default function DroneHero() {
       H = container.clientHeight;
       camera.aspect = W / H;
       const nowMobile = W < 768;
-      camera.position.z = nowMobile ? 6.0 : 8.0;
+      camera.position.z = nowMobile ? 5.0 : 8.0;
+      drone.scale.setScalar(nowMobile ? 0.72 : 0.85);
       camera.updateProjectionMatrix();
       renderer.setSize(W, H);
     };
