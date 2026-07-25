@@ -3,43 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book;
+use App\Models\Service;
 use App\Models\Portfolio;
-use Illuminate\Support\Str;
+
 class PortfolioController extends Controller
 {
-    /*public function portfolio()
+    public function index()
     {
-        $portfolios = Portfolio::all();
-        $books = Book::all();
-        return view('portfolio', compact('portfolios','books'));
-    }*/
- 
+        $projects = Portfolio::whereNotNull('title')
+            ->get()
+            ->unique('title')
+            ->values();
+            
+        return view('portfolio', compact('projects'));
+    }
+
+    public function show($id)
+    {
+        $project = Portfolio::where('slug', $id)
+            ->orWhere('id', $id)
+            ->firstOrFail();
+
+        return view('indi_portfolio', compact('project'));
+    }
+
     public function showPortfoliosByBook()
-{
-    // Find the book by its name
-    $book = Book::where('name', 'DRONE SOLUTIONS')->firstOrFail();
+    {
+        return $this->index();
+    }
 
-    // Retrieve all portfolios related to the book
-    $portfolios = $book->portfolios;
-
-    return view('portfolio2', compact('portfolios', 'book'));
-}
-
-public function showPortfolioInBook($portfolioTitle)
-{
-   // Find the book by its name
-   $book = Book::where('name', 'DRONE SOLUTIONS')->firstOrFail();
-
-   // Replace hyphens with spaces in the portfolio title
-   $portfolioTitle = str_replace('-', ' ', $portfolioTitle);
-
-   // Find the portfolio by its title within the specified book
-   $portfolio = Portfolio::where('title', $portfolioTitle)
-       ->where('book_id', $book->id)
-       ->firstOrFail();
-
-    return view('indi_portfolio', compact('portfolio', 'book'));
-}
-
+    public function showPortfolioInBook($portfolioTitle)
+    {
+        return $this->show($portfolioTitle);
+    }
 }

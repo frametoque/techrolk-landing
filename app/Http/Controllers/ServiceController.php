@@ -3,37 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book;
+use App\Models\Service;
 use App\Models\Portfolio;
+use App\Models\Team;
+use App\Models\Partner;
+use App\Models\Testimonial;
+
 class ServiceController extends Controller
 {
+    public function Home()
+    {
+        $services = Service::all();
+        $testimonials = Testimonial::all();
+        $projects = Portfolio::whereNotNull('title')->get()->unique('title')->take(6)->values();
+
+        return view('index', compact('services', 'testimonials', 'projects'));
+    }
+
+    public function About()
+    {
+        $team = Team::all();
+        $partners = Partner::where('type', 'partner')->get();
+        $dealerships = Partner::where('type', 'dealership')->get();
+
+        return view('about', compact('team', 'partners', 'dealerships'));
+    }
+
+    public function Contact()
+    {
+        return view('contact');
+    }
+
     public function Services()
     {
-        $books = Book::all();
-       
-        return view('Services', compact('books'));
-    }
-    
-    /*public function portfoliosByBook($book_id)
-    {
-        // Retrieve the book and its portfolios
-        $book = Book::findOrFail($book_id);
-        $portfolios = Portfolio::where('book_id', $book_id)->get();
-    
-        return view('portfolio', compact('book', 'portfolios'));
-    }*/
-    /*public function Home()
-    {
-        $books = Book::all();
-        $portfolios = Portfolio::all();
-        return view('index', compact('books','portfolios'));
-    }*/
+        $services = Service::all();
 
-   /* public function portfoliosByPortfolio(Request $request, $portfolio_id)
-    {
-        $portfolio = Portfolio::findOrFail($portfolio_id);
-        
-        // Return the view with the portfolio details
-        return view('indi_portfolio', compact('portfolio'));
-    }*/
+        return view('services', compact('services'));
+    }
 }

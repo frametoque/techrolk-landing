@@ -16,22 +16,12 @@ use App\Http\Controllers\PortfolioController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-//Route::get('/',[ServiceController::class,'Home'])->name('Home');
-
-/*Route::get('/services', function () {
-    return view('services');
-});*/
-
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::get('/', [ServiceController::class, 'Home'])->name('home');
+Route::get('/about', [ServiceController::class, 'About'])->name('about');
+Route::get('/contact', [ServiceController::class, 'Contact'])->name('contact');
+Route::get('/services', [ServiceController::class, 'Services'])->name('services');
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio');
+Route::get('/portfolio/{id}', [PortfolioController::class, 'show'])->name('portfolio.show');
 
 Route::get('/cookies', function () {
     return view('cookies');
@@ -121,26 +111,36 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'
 ])->group(function () {
     Route::post('/Edit-portfolio/{id}',[AdminController::class,'Edit_portfolio_Details'])->name('portfolio_Details');
 });
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/Delete-portfolio/{id}',[AdminController::class,'Delete_portfolio_Details'])->name('portfolio_Delete');
+    Route::get('/dashboard/partners', [AdminController::class, 'Partners'])->name('partners');
+    Route::get('/dashboard/Add-partner', [AdminController::class, 'Partner_Index'])->name('Partner_Index');
+    Route::post('/dashboard/Add-partner', [AdminController::class, 'Add_Partner'])->name('Add_Partner');
+    Route::get('/Edit-partner/{id}', [AdminController::class, 'Edit_Partner_Index'])->name('Edit_Partner_Index');
+    Route::post('/Edit-partner/{id}', [AdminController::class, 'Edit_Partner_Details'])->name('Edit_Partner_Details');
+    Route::get('/Delete-partner/{id}', [AdminController::class, 'Delete_Partner_Details'])->name('Delete_Partner_Details');
+
+    /* Teams Routes */
+    Route::get('/dashboard/teams', [AdminController::class, 'Teams'])->name('teams');
+    Route::get('/dashboard/Add-team', [AdminController::class, 'Team_Index'])->name('Team_Index');
+    Route::post('/dashboard/Add-team', [AdminController::class, 'Add_Team'])->name('Add_Team');
+    Route::get('/Edit-team/{id}', [AdminController::class, 'Edit_Team_Index'])->name('Edit_Team_Index');
+    Route::post('/Edit-team/{id}', [AdminController::class, 'Edit_Team_Details'])->name('Edit_Team_Details');
+    Route::get('/Delete-team/{id}', [AdminController::class, 'Delete_Team_Details'])->name('Delete_Team_Details');
+
+    /* Testimonials Routes */
+    Route::get('/dashboard/testimonials', [AdminController::class, 'Testimonials'])->name('testimonials');
+    Route::get('/dashboard/Add-testimonial', [AdminController::class, 'Testimonial_Index'])->name('Testimonial_Index');
+    Route::post('/dashboard/Add-testimonial', [AdminController::class, 'Add_Testimonial'])->name('Add_Testimonial');
+    Route::get('/Edit-testimonial/{id}', [AdminController::class, 'Edit_Testimonial_Index'])->name('Edit_Testimonial_Index');
+    Route::post('/Edit-testimonial/{id}', [AdminController::class, 'Edit_Testimonial_Details'])->name('Edit_Testimonial_Details');
+    Route::get('/Delete-testimonial/{id}', [AdminController::class, 'Delete_Testimonial_Details'])->name('Delete_Testimonial_Details');
 });
 Route::get('/services',[ServiceController::class,'Services'])->name('Shop');
 
-//Route::get('/portfolio',[PortfolioController::class,'portfolio'])->name('portfolio');
-
-
-//Route::get('/service/{book_id}', [ServiceController::class, 'portfoliosByBook'])->name('portfoliosByBook'); 
-
-/*Route::get('/portfolio/{portfolio_id}', [ServiceController::class, 'portfoliosByPortfolio'])->name('portfoliosByPortfolio');
- */
-
-
-Route::get('/portfolio', [PortfolioController::class, 'showPortfoliosByBook'])
-    ->name('books.portfolios');
-
-    
- Route::get('/{portfolio}', [PortfolioController::class, 'showPortfolioInBook'])->name('showPortfolioInBook');
+// Old duplicate portfolio routes removed in favor of top routes:
+// Route::get('/portfolio', [PortfolioController::class, 'showPortfoliosByBook'])->name('books.portfolios');
+// Route::get('/{portfolio}', [PortfolioController::class, 'showPortfolioInBook'])->name('showPortfolioInBook');
  
 
 

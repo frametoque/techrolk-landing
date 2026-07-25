@@ -1,0 +1,24 @@
+# TechRoLK Engineering Solutions
+
+> TechRoLK Engineering Solutions is a Sri Lanka-based company (founded 2019 by four University of Moratuwa undergraduates, registered 2020) specializing in UAV/FPV drone design, manufacturing, component resale, and 3D printing. TechRoLK provides custom prototyping and 3D CAD design services for mechatronics, robotics, and drones, and operates an online FPV drone parts store with in-stock inventory shipping from Sri Lanka.
+
+## Company
+
+- [Homepage](https://techrolk.com/): Overview of TechRoLK's engineering services, drone specialization, and product store.
+- [About](https://www.techrolk.com/about): Company history — founded 27 September 2019 by four University of Moratuwa undergraduates, formally registered as TechRoLK Engineering Solutions on 2 September 2020 in Sri Lanka. Built around a "Made in Sri Lanka" philosophy.
+- [Services](https://techrolk.com/services): 3D CAD design (DWG, DXF, STEP, IGES, STL formats), prototyping for mechatronics, robotics, UAVs/UGAVs, and custom drones, plus 3D-printed prototypes. Free CAD/prototyping consultation offered when purchasing main components from TechRoLK.
+- [Portfolio](https://techrolk.com/portfolio): Case studies of past builds, including custom payload-carrying quadcopters, autonomous FPV drones, and a combined ground/aerial (UGAV) disaster-rescue platform with autonomous navigation.
+- [Contact](https://techrolk.com/contact): Contact form and details for quotes and consultations. Physical retail presence with 3 outlets across Sri Lanka (including Maharagama).
+
+## Shop
+
+- [Shop — All Products](https://techrolk.com/shop/): Main storefront for the TechRoLK FPV Drone Store — RC drones, LiPo batteries, chargers, radio controllers, motors, and other electronics for STEM and RC hobbies. All in-stock items ship from Sri Lanka; orders placed via the website.
+- [Drone Frames](https://techrolk.com/shop/product-category/drone-frames/): Carbon fiber drone frames for freestyle, cinematic, and multirotor builds.
+- [Drone Bundle Kits](https://techrolk.com/shop/product-category/drone-frames/drone-bundle-kits/): Combo build kits (frame + motors + flight controller + propellers), e.g. GEPRC Cinelog35, Cinebot30 O3, Speedybee Mario5/Bee35 Pro. Custom bundle configurations available on request.
+- [Flight Controllers](https://techrolk.com/shop/product-category/electronics/flight-controllers/): AIO and standalone flight controller boards for FPV/RC drone builds.
+- [FPV Goggles & Accessories](https://techrolk.com/shop/product-category/fpv-systems/fpv-goggles-accessories/): Analog and Digital HD FPV goggles and accessories for mini whoops, cinewhoops, freestyle quads, and long-range FPV drones.
+
+## Notes
+
+- Prices are listed in Sri Lankan Rupees (Rs.) and United States Dollars (USD).
+- Social presence: Facebook, Instagram, and YouTube under the TechRoLK / @techrolk handle.
